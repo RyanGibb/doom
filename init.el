@@ -1,12 +1,5 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-;; This file controls what Doom modules are enabled and what order they load
-;; in. Remember to run 'doom sync' after modifying it!
-
-;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
-;;      documentation. There you'll find a link to Doom's Module Index where all
-;;      of our modules are listed, including what flags they support.
-
 ;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
 ;;      'C-c c k' for non-vim users) to view its documentation. This works on
 ;;      flags as well (those symbols that start with a plus).
@@ -96,7 +89,7 @@
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        lookup              ; navigate your code and its documentation
-       ;;lsp               ; M-x vscode
+       lsp               ; M-x vscode
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -104,7 +97,7 @@
        ;;prodigy           ; FIXME managing external services & code builders
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
-       ;;tree-sitter       ; syntax and parsing, sitting in a tree...
+       tree-sitter       ; syntax and parsing, sitting in a tree...
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -146,12 +139,12 @@
        ;;kotlin            ; a better, slicker Java(Script)
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;lean              ; for folks with too much to prove
-       ;;ledger            ; be audit you can be
+       ledger            ; be audit you can be
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
-       ;;ocaml             ; an objective camel
+       (ocaml +lsp +tree-sitter) ; an objective camel
        org               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
@@ -177,7 +170,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       ;;(mu4e +org +gmail)
+       (mu4e +org)
        ;;notmuch
        ;;(wanderlust +gmail)
 
