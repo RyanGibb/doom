@@ -1,5 +1,9 @@
 ;;; mu4e.el -*- lexical-binding: t; -*-
 
+;; https://github.com/doomemacs/doomemacs/issues/8210
+(use-package mu4e
+  :commands mu4e mu4e-compose-new
+)
 (after! mu4e
   (setq mu4e-get-mail-command "mbsync -a")
 
@@ -122,10 +126,6 @@
   ; Fixing duplicate UID errors when using mbsync and mu4e
   (setq mu4e-change-filenames-when-moving t)
 
-  ; (setq mu4e-use-fancy-chars t)
-  ; (setq mu4e-attachment-dir "~/download")
-  (setq mu4e-view-show-images t)
-
   (setq mu4e-bookmarks
         '((:name "Unified Inbox"
                  :query "maildir:/ryan@freumh.org/Inbox OR maildir:/ryangibb321@gmail.com/Inbox OR maildir:/ryan.gibb@cl.cam.ac.uk/Inbox"
@@ -170,4 +170,11 @@
   )
 
   (setq mu4e-split-view nil)
+
+  (require 'mu4e-icalendar)
+  (gnus-icalendar-setup)
+
+  (setq gnus-icalendar-org-capture-file "~/vault/cal.org")
+  (setq gnus-icalendar-org-capture-headline '("Calendar"))
+  (gnus-icalendar-org-setup)
 )
