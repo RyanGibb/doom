@@ -169,7 +169,8 @@
     (evil-collection-define-key 'normal 'mu4e-main-mode-map (kbd "i") 'mu4e-update-index)
   )
 
-  (setq mu4e-split-view nil)
+  ;; https://github.com/doomemacs/doomemacs/issues/8210
+  ;; (setq mu4e-split-view nil)
 
   (require 'mu4e-icalendar)
   (gnus-icalendar-setup)

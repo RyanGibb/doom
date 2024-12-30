@@ -1,6 +1,6 @@
 ;;; ledger.el -*- lexical-binding: t; -*-
 
-(after! ledger
+(after! ledger-mode
   (setq ledger-post-amount-alignment-column 52)
   (setq ledger-default-date-format ledger-iso-date-format)
   (setq ledger-post-account-alignment-column 4)

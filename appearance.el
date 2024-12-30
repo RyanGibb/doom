@@ -25,3 +25,5 @@
     (mapc 'set-transparent-background (frame-list))))
 
 (setq display-line-numbers-type 'relative)
+
+(display-battery-mode 1)

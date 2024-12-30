@@ -49,7 +49,7 @@
        electric          ; smarter, keyword-based electric-indent
        ;;eww               ; the internet is gross
        ;;ibuffer           ; interactive buffer management
-       undo              ; persistent, smarter undo for your inevitable mistakes
+       (undo +tree)
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
@@ -155,7 +155,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       ;; (mu4e +org)
+       mu4e
 
        :app
        ;;calendar
