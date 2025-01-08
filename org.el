@@ -42,7 +42,7 @@
   (when (and buffer-file-name
              (string-equal (file-name-extension buffer-file-name) "md"))
     (let* ((org-file (concat (file-name-sans-extension buffer-file-name) ".org"))
-           (command (format "pandoc -f markdown -t org %s -o %s"
+           (command (format "pandoc -f markdown -t org %s -o %s --wrap=none"
                             (shell-quote-argument buffer-file-name)
                             (shell-quote-argument org-file))))
       (save-buffer)
