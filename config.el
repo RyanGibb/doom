@@ -22,3 +22,6 @@
       :map evil-ex-search-keymap
       "C-f" #'evil-command-window)
 (setq evil-collection-setup-minibuffer t)
+
+(global-set-key (kbd "<mouse-8>") #'evil-jump-backward)
+(global-set-key (kbd "<mouse-9>") #'evil-jump-forward)
