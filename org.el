@@ -23,10 +23,10 @@
   (setq org-capture-templates
         '(("t" "Todo" entry
            (file +org-capture-todo-file)
-           "* TODO %?\n%i\n")
+           "* TODO %?\n%i\n" :prepend t)
           ("n" "Note" entry
            (file +org-capture-notes-file)
-           "* %u %? %i\n")
+           "* %u %? %i\n" :prepend t)
           ("l" "Link note" entry
            (file +org-capture-notes-file)
            "* %?\n%a" :prepend t)
@@ -34,6 +34,17 @@
            (file+olp+datetree +org-capture-journal-file)
            "* %U %?\n%i"))
   )
+  (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
+  (defun org-todo-list-work ()
+    "Run org-todo-list and filter by tag w."
+    (interactive)
+    (progn
+      (org-todo-list nil)
+      (org-agenda-filter-by-tag nil ?w nil)))
+  (map! :leader
+      :desc "Org Agenda List" "A" #'org-agenda-list
+      :desc "Org Todo List" "T" #'org-todo-list
+      :desc "Org Todo List Work" "W" #'org-todo-list-work)
 )
 
 (defun convert-markdown-to-org-with-pandoc-and-delete ()
@@ -48,10 +59,8 @@
       (save-buffer)
       (if (eq (call-process-shell-command command) 0)
           (progn
-            (delete-file buffer-file-name)
-            (kill-buffer (current-buffer))
             (find-file org-file)
-            (message "Converted %s to %s using Pandoc and deleted the original file." buffer-file-name org-file))
+            (message "Converted %s to %s." buffer-file-name org-file))
         (message "Pandoc conversion failed!")))))
 
 (map! :leader
