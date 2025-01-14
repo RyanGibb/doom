@@ -35,16 +35,51 @@
            "* %U %?\n%i"))
   )
   (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
-  (defun org-todo-list-work ()
-    "Run org-todo-list and filter by tag w."
-    (interactive)
-    (progn
-      (org-todo-list nil)
-      (org-agenda-filter-by-tag nil ?w nil)))
   (map! :leader
-      :desc "Org Agenda List" "A" #'org-agenda-list
-      :desc "Org Todo List" "T" #'org-todo-list
-      :desc "Org Todo List Work" "W" #'org-todo-list-work)
+        :desc "Org Todo List" "A" #'org-agenda)
+
+  (setq org-agenda-start-day nil)
+
+  ;; https://stackoverflow.com/questions/10074016/org-mode-filter-on-tag-in-agenda-view
+  (defun zin/org-agenda-skip-tag (tag &optional others)
+    "Skip all entries that correspond to TAG.
+
+If OTHERS is true, skip all entries that do not correspond to TAG."
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+          (current-headline (or (and (org-at-heading-p)
+                                     (point))
+                                (save-excursion (org-back-to-heading)))))
+      (if others
+          (if (not (member tag (org-get-tags-at current-headline)))
+              next-headline
+            nil)
+        (if (member tag (org-get-tags-at current-headline))
+            next-headline
+          nil))))
+  (setq org-agenda-custom-commands
+        '(("a" "Agenda"
+           ((agenda ""
+                    ((org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" nil)))
+            )))
+          ("n" "Agenda and all TODOs"
+           ((agenda "")
+            (alltodo "")))
+          ("w" "Work"
+           tags-todo "+work")
+          ("h" "Habits"
+           ((agenda ""
+                    ((org-agenda-span 'day)
+                     (org-agenda-start-day nil)
+                     (org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" 't))))
+            (tags-todo "habit"))
+           ((org-agenda-compact-blocks nil)))
+          ))
+  (setq org-todo-repeat-to-state 'LOOP)
+
+  (setq! citar-bibliography '("~/vault/references.bib"))
+
+  (setq citar-library-paths '("~/library")
+         citar-notes-paths '("~/vault"))
 )
 
 (defun convert-markdown-to-org-with-pandoc-and-delete ()
