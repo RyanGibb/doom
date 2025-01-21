@@ -25,3 +25,8 @@
 
 (global-set-key (kbd "<mouse-8>") #'evil-jump-backward)
 (global-set-key (kbd "<mouse-9>") #'evil-jump-forward)
+
+;; https://evil.readthedocs.io/en/latest/faq.html#underscore-is-not-a-word-character
+(add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
