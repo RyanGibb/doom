@@ -23,16 +23,16 @@
   (setq org-capture-templates
         '(("t" "Todo" entry
            (file +org-capture-todo-file)
-           "* TODO %?\n%i\n" :prepend t)
-          ("n" "Note" entry
+           "* TODO %?\n%U\n%i" :prepend t)
+          ("T" "Todo (link)" entry
+           (file +org-capture-todo-file)
+           "* TODO %?\n%a\n%U\n%i" :prepend t)
+          ("r" "Refile" entry
            (file +org-capture-notes-file)
-           "* %u %? %i\n" :prepend t)
-          ("l" "Link note" entry
+           "* %?\n%u\n%i" :prepend t)
+          ("R" "Refile (link)" entry
            (file +org-capture-notes-file)
-           "* %?\n%a" :prepend t)
-          ("j" "Journal" entry
-           (file+olp+datetree +org-capture-journal-file)
-           "* %U %?\n%i"))
+           "* %?\n%a\n%u\n%i" :prepend t))
   )
   (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
   (map! :leader

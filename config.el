@@ -30,3 +30,4 @@
 (add-hook 'c-mode-common-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
+(add-hook 'conf-toml-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
