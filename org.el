@@ -36,7 +36,7 @@
   )
   (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
   (map! :leader
-        :desc "Org Todo List" "A" #'org-agenda)
+        :desc "Org agenda" "A" #'org-agenda-list)
 
   (setq org-agenda-start-day nil)
 
@@ -50,14 +50,15 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
                                      (point))
                                 (save-excursion (org-back-to-heading)))))
       (if others
-          (if (not (member tag (org-get-tags-at current-headline)))
+          (if (not (member tag (org-get-tags current-headline)))
               next-headline
             nil)
-        (if (member tag (org-get-tags-at current-headline))
+        (if (member tag (org-get-tags current-headline))
             next-headline
           nil))))
   (setq org-agenda-custom-commands
-        '(("a" "Agenda"
+        '(
+          ("a" "Agenda"
            ((agenda ""
                     ((org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" nil)))
             )))
