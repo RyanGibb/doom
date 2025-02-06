@@ -21,7 +21,7 @@
   (setq +org-capture-todo-file (concat org-directory "/todo.org"))
   (setq +org-capture-journal-file (concat org-directory "/journal.org"))
   (setq org-capture-templates
-        '(("t" "Todo" entry
+        `(("t" "Todo" entry
            (file +org-capture-todo-file)
            "* TODO %?\n%U\n%i" :prepend t)
           ("T" "Todo (link)" entry
@@ -32,7 +32,10 @@
            "* %?\n%u\n%i" :prepend t)
           ("R" "Refile (link)" entry
            (file +org-capture-notes-file)
-           "* %?\n%a\n%u\n%i" :prepend t))
+           "* %?\n%a\n%u\n%i" :prepend t)
+          ("s" "Schedule" entry
+           (file ,(concat org-directory "schedule.org"))
+           "* %u %?\n%i" :prepend t))
   )
   (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
   (map! :leader
