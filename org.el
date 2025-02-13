@@ -1,7 +1,7 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
 (setq org-directory "~/vault/")
-(setq org-agenda-files (list org-directory "~/projects/website/static/"))
+(setq org-agenda-files (list org-directory))
 
 (use-package! org-habit :after org)
 
