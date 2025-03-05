@@ -13,7 +13,7 @@
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
 
   (let ((full-name "Ryan Gibb")
-        (signature "Ryan Gibb"))
+        (signature nil))
     (setq mu4e-contexts
           `(,
             (let ((mail-address "ryan@freumh.org")
