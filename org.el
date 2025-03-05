@@ -6,6 +6,10 @@
 (use-package! org-habit :after org)
 
 (after! org
+  (with-no-warnings
+    (custom-declare-face '+org-todo-active  '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
+    (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
+    (custom-declare-face '+org-todo-onhold  '((t (:inherit (bold warning org-todo)))) ""))
   (setq org-todo-keywords
         '((sequence
            "TODO(t)"    ; A task that needs doing & is ready to do
@@ -17,7 +21,13 @@
            "IDEA(i)"    ; An unconfirmed and unapproved task or notion
            "|"
            "DONE(d)"    ; Task successfully completed
-           "KILL(k)"))) ; Task was cancelled, aborted, or is no longer applicable
+           "KILL(k)"))  ; Task was cancelled, aborted, or is no longer applicable
+        org-todo-keyword-faces
+        '(("STRT" . +org-todo-active)
+          ("WAIT" . +org-todo-onhold)
+          ("HOLD" . +org-todo-onhold)
+          ("PROJ" . +org-todo-project)
+          ("KILL" . org-done)))
   (setq +org-capture-notes-file (concat org-directory "/refile.org"))
   (setq +org-capture-todo-file (concat org-directory "/todo.org"))
   (setq +org-capture-journal-file (concat org-directory "/journal.org"))
