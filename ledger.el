@@ -7,5 +7,5 @@
   (setq ledger-reconcile-default-commodity "£")
   (map! :map ledger-reconcile-mode-map
         :n "q" #'ledger-reconcile-quit)
-)
+  )
 (setq tab-always-indent 'complete)

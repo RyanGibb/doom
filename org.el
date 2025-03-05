@@ -47,7 +47,7 @@
           ("s" "Schedule" entry
            (file ,(concat org-directory "schedule.org"))
            "* %u %?\n%i" :prepend t))
-  )
+        )
   (setq org-tag-alist '(("work" . ?w) ("systems" . ?s)))
   (map! :leader
         :desc "Org agenda" "A" #'org-agenda-list)
@@ -75,7 +75,7 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
           ("a" "Agenda"
            ((agenda ""
                     ((org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" nil)))
-            )))
+                    )))
           ("n" "Agenda and all TODOs"
            ((agenda "")
             (alltodo "")))
@@ -94,8 +94,8 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
   (setq! citar-bibliography '("~/vault/references.bib"))
 
   (setq citar-library-paths '("~/library")
-         citar-notes-paths '("~/vault"))
-)
+        citar-notes-paths '("~/vault"))
+  )
 
 (defun convert-markdown-to-org-with-pandoc-and-delete ()
   "Convert the current Markdown file to an Org file using Pandoc and delete the original."
