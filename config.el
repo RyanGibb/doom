@@ -31,3 +31,27 @@
 (add-hook 'rust-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (modify-syntax-entry ?- "w")))
 (add-hook 'conf-toml-mode-hook #'(lambda () (modify-syntax-entry ?_ "w")))
+
+(after! lsp-mode
+  ;; https://github.com/emacs-lsp/lsp-mode/issues/713#issuecomment-985653873
+  (advice-add 'lsp--get-ignored-regexes-for-workspace-root
+          :around (lambda (fn workspace-root)
+            (let* ((ignored-things (funcall fn workspace-root))
+                   (ignored-files-regex-list (car ignored-things))
+                   (ignored-directories-regex-list (cadr ignored-things))
+                   (cmd (format "git clean --dry-run -X '%s' | cut -d' ' -f3" workspace-root))
+                   (gitignored-things (split-string (shell-command-to-string cmd) "\n" t))
+                   (gitignored-files (seq-remove (lambda (line) (string-match "[/\\\\]\\'" line)) gitignored-things))
+                   (gitignored-directories (seq-filter (lambda (line) (string-match "[/\\\\]\\'" line)) gitignored-things))
+                   (gitignored-files-regex-list
+                (mapcar (lambda (file) (concat "[/\\\\]" (regexp-quote file) "\\'"))
+                    gitignored-files))
+                   (gitignored-directories-regex-list
+                (mapcar (lambda (directory)
+                      (concat "[/\\\\]"
+                          (regexp-quote (replace-regexp-in-string "[/\\\\]\\'" "" directory))
+                          "\\'"))
+                    gitignored-directories)))
+              (list
+               (append ignored-files-regex-list gitignored-files-regex-list)
+               (append ignored-directories-regex-list gitignored-directories-regex-list))))))
