@@ -55,3 +55,25 @@
                           (list
                            (append ignored-files-regex-list gitignored-files-regex-list)
                            (append ignored-directories-regex-list gitignored-directories-regex-list))))))
+
+; auto build LaTeX on save
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook
+                      (lambda ()
+                        (TeX-command TeX-command-default 'TeX-master-file -1))
+                      nil t)))
+
+(defun my/pdf-resize-window-to-width ()
+  "Resize the current window to match the width of the PDF in `pdf-view-mode`."
+  (interactive)
+  (when (eq major-mode 'pdf-view-mode)
+    (let* ((pdf-px-width (car (pdf-view-image-size))) ; PDF width in pixels
+           (char-width   (frame-char-width))          ; One character width in pixels
+           ;; Convert PDF pixel width to 'columns' in Emacs
+           (desired-cols (round (/ (float pdf-px-width) (float char-width))))
+           (current-cols (window-width))
+           ;; The difference between desired and current
+           (delta (- desired-cols current-cols)))
+      ;; Resize the window horizontally by DELTA columns
+      (window-resize (selected-window) delta t))))
