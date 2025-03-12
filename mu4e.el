@@ -178,4 +178,7 @@
   (setq gnus-icalendar-org-capture-file "~/vault/cal.org")
   (setq gnus-icalendar-org-capture-headline '("Calendar"))
   (gnus-icalendar-org-setup)
+
+  ;; https://github.com/doomemacs/doomemacs/issues/7847
+  (map! :map mu4e-view-mode-map :ni "A" #'mu4e-view-mime-part-action)
   )
