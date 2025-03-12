@@ -56,6 +56,8 @@
                            (append ignored-files-regex-list gitignored-files-regex-list)
                            (append ignored-directories-regex-list gitignored-directories-regex-list))))))
 
+(setq! +latex-viewers '(pdf-tools evince))
+
 ; auto build LaTeX on save
 (add-hook 'LaTeX-mode-hook
           (lambda ()
