@@ -58,7 +58,7 @@
 
 (setq! +latex-viewers '(pdf-tools evince))
 
-; auto build LaTeX on save
+;; auto build LaTeX on save
 (add-hook 'LaTeX-mode-hook
           (lambda ()
             (add-hook 'after-save-hook
@@ -79,3 +79,19 @@
            (delta (- desired-cols current-cols)))
       ;; Resize the window horizontally by DELTA columns
       (window-resize (selected-window) delta t))))
+
+(defun =caledonia ()
+  "Start calendar client."
+  (interactive)
+  (require 'caledonia)
+  (require 'caledonia-evil)
+  (if (modulep! :ui workspaces)
+      (+workspace-switch "*caledonia*" t))
+  (caledonia-list))
+
+(setq! caledonia-executable "/home/ryan/.opam/default/bin/caled")
+
+;; They're real to me https://github.com/doomemacs/doomemacs/issues/2891
+(add-hook 'messages-buffer-mode-hook #'doom-mark-buffer-as-real-h)
+(add-hook 'org-agenda-mode-hook #'doom-mark-buffer-as-real-h)
+(add-hook 'caledonia-mode-hook #'doom-mark-buffer-as-real-h)
