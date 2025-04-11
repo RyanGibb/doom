@@ -95,3 +95,4 @@
 (add-hook 'messages-buffer-mode-hook #'doom-mark-buffer-as-real-h)
 (add-hook 'org-agenda-mode-hook #'doom-mark-buffer-as-real-h)
 (add-hook 'caledonia-mode-hook #'doom-mark-buffer-as-real-h)
+(add-hook 'eww-mode-hook #'doom-mark-buffer-as-real-h)
