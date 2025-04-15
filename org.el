@@ -1,11 +1,12 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
 (setq org-directory "~/vault/")
-(setq org-agenda-files (list org-directory))
+(setq org-agenda-files `(,org-directory "~/projects/website/static/working.org"))
 
 (use-package! org-habit :after org)
 
 (after! org
+  (setq org-startup-indented nil)
   (with-no-warnings
     (custom-declare-face '+org-todo-active  '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
     (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
@@ -21,12 +22,14 @@
            "IDEA(i)"    ; An unconfirmed and unapproved task or notion
            "|"
            "DONE(d)"    ; Task successfully completed
+           "MOVE(m)"    ; Task rescheduled
            "KILL(k)"))  ; Task was cancelled, aborted, or is no longer applicable
         org-todo-keyword-faces
         '(("STRT" . +org-todo-active)
           ("WAIT" . +org-todo-onhold)
           ("HOLD" . +org-todo-onhold)
           ("PROJ" . +org-todo-project)
+          ("MOVE" . org-done)
           ("KILL" . org-done)))
   (setq +org-capture-notes-file (concat org-directory "/refile.org"))
   (setq +org-capture-todo-file (concat org-directory "/todo.org"))
@@ -94,8 +97,7 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
   (setq! citar-bibliography '("~/vault/references.bib"))
 
   (setq citar-library-paths '("~/library")
-        citar-notes-paths '("~/vault"))
-  )
+        citar-notes-paths '("~/vault")))
 
 (defun convert-markdown-to-org-with-pandoc-and-delete ()
   "Convert the current Markdown file to an Org file using Pandoc and delete the original."
@@ -116,3 +118,11 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
 (map! :leader
       :desc "Convert Markdown to Org with Pandoc and delete"
       "f M" #'convert-markdown-to-org-with-pandoc-and-delete)
+
+(defun org-datefile ()
+  "Prompt for a date and create an Org file named YYYY-MM-DD.org in the current directory."
+  (interactive)
+  (let* ((date (org-read-date nil nil nil "Date:"))
+         (formatted-date (format-time-string "%Y-%m-%d" (org-time-string-to-time date)))
+         (filename (expand-file-name (concat formatted-date ".org") default-directory)))
+    (find-file filename)))
