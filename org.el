@@ -1,7 +1,7 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
 (setq org-directory "~/vault/")
-(setq org-agenda-files `(,org-directory))
+(setq org-agenda-files `(,org-directory "~/projects/website/static/"))
 
 (use-package! org-habit :after org)
 
@@ -110,10 +110,20 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
       :desc "Convert Markdown to Org with Pandoc and delete"
       "f M" #'convert-markdown-to-org-with-pandoc-and-delete)
 
-(defun org-datefile ()
-  "Prompt for a date and create an Org file named YYYY-MM-DD.org in the current directory."
+(defun weekfile ()
+  "Open an Org file named YYYY-MM-DD.org for the Monday of the current week
+in the ~/projects/website/static/ directory."
   (interactive)
-  (let* ((date (org-read-date nil nil nil "Date:"))
-         (formatted-date (format-time-string "%Y-%m-%d" (org-time-string-to-time date)))
-         (filename (expand-file-name (concat formatted-date ".org") default-directory)))
+  (let* ((current-time (current-time))
+         ;; Day of week: 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+         (dow (nth 6 (decode-time current-time)))
+         ;; Offset to Monday (if today is Sunday (0), then go back 6 days)
+         (offset (if (= dow 0) -6 (- 1 dow)))
+         (monday-time (time-subtract current-time (days-to-time (- offset))))
+         (formatted-date (format-time-string "%Y-%m-%d" monday-time))
+         (filename (expand-file-name (concat formatted-date ".org")
+                                     "~/projects/website/static/")))
     (find-file filename)))
+
+(map! :leader
+      :desc "weekfile" "W" #'weekfile)

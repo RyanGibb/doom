@@ -98,4 +98,4 @@
 (add-hook 'eww-mode-hook #'doom-mark-buffer-as-real-h)
 
 (map! :leader
-      :desc "Async cmd in the project rootOrg agenda" "S" #'projectile-run-async-shell-command-in-root)
+      :desc "Async cmd in the project root" "S" #'projectile-run-async-shell-command-in-root)
