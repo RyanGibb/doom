@@ -1,7 +1,7 @@
 ;;; org.el -*- lexical-binding: t; -*-
 
 (setq org-directory "~/vault/")
-(setq org-agenda-files `(,org-directory "~/projects/website/static/working.org"))
+(setq org-agenda-files `(,org-directory))
 
 (use-package! org-habit :after org)
 
@@ -75,15 +75,6 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
           nil))))
   (setq org-agenda-custom-commands
         '(
-          ("a" "Agenda"
-           ((agenda ""
-                    ((org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" nil)))
-                    )))
-          ("n" "Agenda and all TODOs"
-           ((agenda "")
-            (alltodo "")))
-          ("w" "Work"
-           tags-todo "+work")
           ("h" "Habits"
            ((agenda ""
                     ((org-agenda-span 'day)
