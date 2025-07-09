@@ -8,7 +8,7 @@
 (load! "ledger.el")
 (load! "org.el")
 
-(setq which-key-idle-delay 0.1)
+;; (setq which-key-idle-delay 0.1)
 
 ;; https://github.com/doomemacs/doomemacs/issues/8101
 ;; (map! :m "TAB" #'evil-jump-forward)

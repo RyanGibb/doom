@@ -6,7 +6,6 @@
 (use-package! org-habit :after org)
 
 (after! org
-  (setq org-startup-indented nil)
   (with-no-warnings
     (custom-declare-face '+org-todo-active  '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
     (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
@@ -75,6 +74,13 @@ If OTHERS is true, skip all entries that do not correspond to TAG."
           nil))))
   (setq org-agenda-custom-commands
         '(
+          ("a" "Agenda"
+           ((agenda ""
+                    ((org-agenda-skip-function '(zin/org-agenda-skip-tag "habit" nil)))
+                    )))
+          ("n" "Agenda and all TODOs"
+           ((agenda "")
+            (alltodo "")))
           ("h" "Habits"
            ((agenda ""
                     ((org-agenda-span 'day)
