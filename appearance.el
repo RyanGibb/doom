@@ -2,7 +2,9 @@
 
 (setq doom-font (font-spec :family "monospace" :size 15 :weight 'medium)
       doom-variable-pitch-font (font-spec :family "sans-serif" :size 15))
-(load-theme 'gruvbox-dark-medium t)
+(use-package! gruvbox-theme
+  :config
+  (load-theme 'gruvbox-dark-medium t))
 
 (defun set-transparent-background (frame)
   (when (not (display-graphic-p frame))
